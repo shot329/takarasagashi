@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Practice</title>
+  <style>
+    body { /* divの親要素に指定する。*/
+      display: flex;
+      flex-wrap: wrap; /* 要素が増えてきた時に折り返して表示するように指定 */
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color:skyblue;
+      cursor: pointer; /* 要素にカーソルを載せた時に、指さしマークのポインターが表示される。*/
+      transition: 0.8s;
+      margin: 0 8px 8px 0; /* 上、右、下、左 */
+      text-align: center;
+      line-height: 100px;
+    }
+    .win {
+      background: pink;
+      border-radius: 50%;
+      transform: rotate(360deg);
+    }
+    .lose {
+      transform: scale(0.9);
+
+    }
+  </style>
+</head>  
+<body>
+
+  <script> /* すべてのhtmlの要素を読み込んでからそれらを操作するのでbodyタグの閉じタグの直前に書くのが一般的である。*/
+    'use strict'; /* こうすると、ブラウザが厳密なエラーチェックをしてくれるので、間違いがあったときに見つけやすくなる。*/
+
+    /*boxを必要な数だけ用意して、どれかひとつに設定されている当たりを見つける。*/
+
+    const num = 5;
+    const winner = Math.floor(Math.random() * num);//0~4のランダムな整数値を一つだけ生成して、winnerに代入。//
+
+    for (let i =0; i < num; i++) {
+      const div = document.createElement('div');//div要素を作る。今後何度も使用するので、定数として定義。
+      div.classList.add('box'); //クラス名の追加
+  
+      div.addEventListener('click', () => { //クリックした時の処理。addEventListenerは、何かが起きたら何らかの処理をしてねという仕組み。
+       if (i === winner) { /*winnerとiを比較して当たり判定を行う。一回判定を行ったら終わり。その後クリックしても反応はしない。*/
+         div.textContent = 'Win!'; //テキストの追加
+         div.classList.add('win'); //クラス名の追加
+       } else {
+        div.textContent = 'Lose!';
+         div.classList.add('lose');
+       }
+      });
+  
+      document.body.appendChild(div); //divをbodyの子要素として追加。これを書くことで初めてブラウザに表示される。//
+    }
+
+
+  </script>
+</body>
+</html>
